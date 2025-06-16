@@ -38,3 +38,19 @@ describe('Filter bookings by name', () => {
     })
   })
 })
+
+describe('Filter bookings by checkin date', () => {
+  it('Should filter bookings by checkin date', () => {
+    cy.api({
+      method: 'GET',
+      url: '/booking?checkin=2014-03-13&checkout=2014-05-21',
+      headers: {
+        'Content-type': 'application/json',
+        'Authorization': `Bearer ${accessToken}`
+      },
+      failOnStatusCode: false
+    }).then((response) => {
+      expect(response.status).to.eq(200)
+    })
+  })
+})
