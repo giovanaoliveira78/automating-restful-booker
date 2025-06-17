@@ -20,6 +20,8 @@ describe('Get a booking by ID', () => {
           failOnStatusCode: false
         }).then((response) => {
           expect(response.status).to.eq(200)
+          expect(response.body).to.have.property('firstname')
+          expect(response.body.bookingdates).to.be.an('object')
         })
     })
   })
