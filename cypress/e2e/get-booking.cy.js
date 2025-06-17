@@ -7,17 +7,20 @@ beforeEach(() => {
 })
 
 describe('Get a booking by ID', () => {
-  it('Should get a bokking by ID', () => {
-    cy.api({
-      method: 'GET',
-      url: '/booking/1',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${accessToken}`
-      },
-      failOnStatusCode: false
-    }).then((response) => {
-      expect(response.status).to.eq(200)
+  it('Should fetch the booking ID dynamically', () => {
+    cy.getRamdomBookingId().then((bookingId) => {
+      cy.log(bookingId),
+        cy.api({
+          method: 'GET',
+          url: `/booking/${bookingId}`,
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${accessToken}`
+          },
+          failOnStatusCode: false
+        }).then((response) => {
+          expect(response.status).to.eq(200)
+        })
     })
   })
 })
