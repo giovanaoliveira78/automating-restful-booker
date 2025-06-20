@@ -1,3 +1,6 @@
+import { faker } from '@faker-js/faker'
+import { generateBookingDates } from '../support/utils'
+
 describe('Create a booking', () => {
   let accessToken
 
@@ -8,6 +11,11 @@ describe('Create a booking', () => {
   })
 
   it('Should create a booking', () => {
+    const firstName = faker.person.firstName()
+    const lastName = faker.person.lastName()
+    const { checkin, checkout } = generateBookingDates()
+    const totalPrice = faker.number.int({ min: 100, max: 1000 })
+
     cy.api({
       method: 'POST',
       url: '/booking',
@@ -16,13 +24,13 @@ describe('Create a booking', () => {
         'Authorization': `Bearer ${accessToken}`
       },
       body: {
-        "firstname": "Jim",
-        "lastname": "Brown",
-        "totalprice": 111,
+        "firstname": firstName,
+        "lastname": lastName,
+        "totalprice": totalPrice,
         "depositpaid": true,
         "bookingdates": {
-          "checkin": "2018-01-01",
-          "checkout": "2019-01-01"
+          checkin,
+          checkout,
         },
         "additionalneeds": "Breakfast"
       },
