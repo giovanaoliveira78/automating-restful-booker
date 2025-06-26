@@ -1,12 +1,11 @@
-let accessToken;
+describe('List and filter bookings', () => {
+  let accessToken
 
-beforeEach(() => {
-  cy.auth().then((token) => {
-    accessToken = token
+  beforeEach(() => {
+    cy.auth().then((token) => {
+      accessToken = token
+    })
   })
-})
-
-describe('Get all bookings', () => {
   it('Should return a list of bookings', () => {
     cy.api({
       method: 'GET',
@@ -21,9 +20,7 @@ describe('Get all bookings', () => {
       expect(response.body).to.be.an('array').and.not.be.empty
     })
   })
-})
 
-describe('Filter bookings by name', () => {
   it('Should filter bookings by name', () => {
     cy.api({
       method: 'GET',
@@ -37,9 +34,7 @@ describe('Filter bookings by name', () => {
       expect(response.status).to.eq(200)
     })
   })
-})
 
-describe('Filter bookings by checkin date', () => {
   it('Should filter bookings by checkin date', () => {
     cy.api({
       method: 'GET',
