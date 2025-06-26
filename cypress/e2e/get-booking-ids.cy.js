@@ -6,8 +6,8 @@ beforeEach(() => {
   })
 })
 
-describe('Get a booking by ID', () => {
-  it('Should get a booking by ID', () => {
+describe('Get all bookings', () => {
+  it('Should return a list of bookings', () => {
     cy.api({
       method: 'GET',
       url: '/booking',
