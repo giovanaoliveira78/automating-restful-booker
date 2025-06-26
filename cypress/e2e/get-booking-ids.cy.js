@@ -9,12 +9,9 @@ beforeEach(() => {
 })
 
 describe('List and filter bookings', () => {
-
-
   const firstName = faker.person.firstName()
   const lastName = faker.person.lastName()
   const { checkin, checkout } = generateBookingDates()
-
 
   it('Should return a list of bookings', () => {
     cy.api({

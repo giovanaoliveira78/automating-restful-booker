@@ -1,3 +1,5 @@
+import { faker } from '@faker-js/faker'
+
 let accessToken
 
 beforeEach(() => {
@@ -23,6 +25,23 @@ describe('Get a booking by ID', () => {
           expect(response.body).to.have.property('firstname')
           expect(response.body.bookingdates).to.be.an('object')
         })
+    })
+  })
+})
+
+describe('Get a booking by ID - Negative scenarios', () => {
+  it('Should fail to fetch a non-existent booking ID', () => {
+    const invalidId = faker.number.int({ min: 99999, max: 999999 })
+    cy.api({
+      method: 'GET',
+      url: `/booking/${invalidId}`,
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${accessToken}`
+      },
+      failOnStatusCode: false
+    }).then((response) => {
+      expect(response.status).to.eq(404)
     })
   })
 })
