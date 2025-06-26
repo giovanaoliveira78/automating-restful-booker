@@ -1,11 +1,21 @@
-describe('List and filter bookings', () => {
-  let accessToken
+import { faker } from '@faker-js/faker'
+import { generateBookingDates } from '../support/utils'
+let accessToken
 
-  beforeEach(() => {
-    cy.auth().then((token) => {
-      accessToken = token
-    })
+beforeEach(() => {
+  cy.auth().then((token) => {
+    accessToken = token
   })
+})
+
+describe('List and filter bookings', () => {
+
+
+  const firstName = faker.person.firstName()
+  const lastName = faker.person.lastName()
+  const { checkin, checkout } = generateBookingDates()
+
+
   it('Should return a list of bookings', () => {
     cy.api({
       method: 'GET',
@@ -24,7 +34,7 @@ describe('List and filter bookings', () => {
   it('Should filter bookings by name', () => {
     cy.api({
       method: 'GET',
-      url: '/booking?firstname=sally&lastname=brown',
+      url: `/booking?firstname=${firstName}&lastname=${lastName}`,
       headers: {
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${accessToken}`
@@ -38,7 +48,7 @@ describe('List and filter bookings', () => {
   it('Should filter bookings by checkin date', () => {
     cy.api({
       method: 'GET',
-      url: '/booking?checkin=2014-03-13&checkout=2014-05-21',
+      url: `/booking?checkin=${checkin}&checkout=${checkout}`,
       headers: {
         'Content-type': 'application/json',
         'Authorization': `Bearer ${accessToken}`
@@ -46,6 +56,22 @@ describe('List and filter bookings', () => {
       failOnStatusCode: false
     }).then((response) => {
       expect(response.status).to.eq(200)
+    })
+  })
+})
+
+describe('List and filter bookings - Negative scenarios', () => {
+  it('Should fail to list bookings with invalid date parameters', () => {
+    cy.api({
+      method: 'GET',
+      url: `/booking?checkin=invalidDate&checkout=invalidDate`,
+      headers: {
+        'Content-type': 'application/json',
+        'Authorization': `Bearer ${accessToken}`
+      },
+      failOnStatusCode: false
+    }).then((response) => {
+      expect(response.status).to.eq(500)
     })
   })
 })
