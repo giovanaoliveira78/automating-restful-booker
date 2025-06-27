@@ -1,21 +1,22 @@
 import { faker } from '@faker-js/faker'
 import { generateBookingDates } from '../support/utils'
+let accessToken
+let firstName, lastName, checkin, checkout, totalPrice
+
+beforeEach(() => {
+  cy.auth().then((token) => {
+    accessToken = token
+  })
+  firstName = faker.person.firstName()
+  lastName = faker.person.lastName()
+  const dates = generateBookingDates()
+  checkin = dates.checkin
+  checkout = dates.checkout
+  totalPrice = faker.number.int({ min: 100, max: 1000 })
+})
 
 describe('Create a booking', () => {
-  let accessToken
-
-  beforeEach(() => {
-    cy.auth().then((token) => {
-      accessToken = token
-    })
-  })
-
   it('Should create a booking', () => {
-    const firstName = faker.person.firstName()
-    const lastName = faker.person.lastName()
-    const { checkin, checkout } = generateBookingDates()
-    const totalPrice = faker.number.int({ min: 100, max: 1000 })
-
     cy.api({
       method: 'POST',
       url: '/booking',
@@ -46,19 +47,6 @@ describe('Create a booking', () => {
 })
 
 describe('Create a booking - Negative scenarios', () => {
-  let accessToken
-
-  const firstName = faker.person.firstName()
-  const lastName = faker.person.lastName()
-  const { checkin, checkout } = generateBookingDates()
-  const totalPrice = faker.number.int({ min: 100, max: 1000 })
-
-  beforeEach(() => {
-    cy.auth().then((token) => {
-      accessToken = token
-    })
-  })
-
   it('Should fail to create a booking when the name is not provided', () => {
     cy.api({
       method: 'POST',
