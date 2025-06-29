@@ -1,5 +1,6 @@
 import { faker } from '@faker-js/faker'
 import { generateBookingDates } from '../support/utils'
+
 let accessToken
 let firstName, lastName, checkin, checkout, totalPrice
 
@@ -9,10 +10,10 @@ beforeEach(() => {
   })
   firstName = faker.person.firstName()
   lastName = faker.person.lastName()
+  totalPrice = faker.number.int({ min: 100, max: 1000 })
   const dates = generateBookingDates()
   checkin = dates.checkin
   checkout = dates.checkout
-  totalPrice = faker.number.int({ min: 100, max: 1000 })
 })
 
 describe('Create a booking', () => {
