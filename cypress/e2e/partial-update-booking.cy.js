@@ -38,3 +38,26 @@ describe('Partial update a booking', () => {
     })
   })
 })
+
+describe('Partial update a booking - Negative scenarios', () => {
+  it('Should fail to partial update a booking when the booking ID is not provided', () => {
+    const invalidId = faker.number.int({ min: 99999, max: 999999 })
+    
+    cy.api({
+      method: 'PATCH',
+      url: `/booking/${invalidId}`,
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+        'Cookie': `token=${accessToken}`
+      },
+      body: {
+        "firstname": firstName,
+        "lastname": lastName
+      },
+      failOnStatusCode: false
+    }).then((response) => {
+      expect(response.status).to.eq(405)
+    })
+  })
+})
