@@ -2,7 +2,6 @@ import { faker } from '@faker-js/faker'
 import { generateBookingDates } from '../support/utils'
 
 let accessToken
-let bookingId
 let firstName, lastName, checkin, checkout, totalPrice
 
 beforeEach(() => {
@@ -15,57 +14,35 @@ beforeEach(() => {
     const dates = generateBookingDates()
     checkin = dates.checkin
     checkout = dates.checkout
-
-    cy.api({
-      method: 'POST',
-      url: '/booking',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${accessToken}`
-      },
-      body: {
-        "firstname": firstName,
-        "lastname": lastName,
-        "totalprice": totalPrice,
-        "depositpaid": true,
-        "bookingdates": {
-          checkin,
-          checkout,
-        },
-        "additionalneeds": "Breakfast"
-      },
-      failOnStatusCode: false
-    }).then((response) => {
-      expect(response.status).to.eq(200)
-
-      bookingId = response.body.bookingid
-    })
   })
 })
+
 describe('Update a booking', () => {
   it('should update a booking', () => {
-    cy.api({
-      method: 'PUT',
-      url: `booking/${bookingId}`,
-      headers: {
-        'Content-Type': 'application/json',
-        'Accept': 'application/json',
-        'Cookie': `token=${accessToken}`
-      },
-      body: {
-        "firstname": firstName,
-        "lastname": lastName,
-        "totalprice": totalPrice,
-        "depositpaid": true,
-        "bookingdates": {
-          checkin,
-          checkout,
+    cy.createBooking().then((bookingId) => {
+      cy.api({
+        method: 'PUT',
+        url: `booking/${bookingId}`,
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+          'Cookie': `token=${accessToken}`
         },
-        "additionalneeds": "Breakfast"
-      },
-      failOnStatusCode: false
-    }).then((response) => {
-      expect(response.status).to.eq(200)
+        body: {
+          "firstname": firstName,
+          "lastname": lastName,
+          "totalprice": totalPrice,
+          "depositpaid": true,
+          "bookingdates": {
+            checkin,
+            checkout,
+          },
+          "additionalneeds": "Breakfast"
+        },
+        failOnStatusCode: false
+      }).then((response) => {
+        expect(response.status).to.eq(200)
+      })
     })
   })
 })
@@ -97,50 +74,54 @@ describe('Update a booking - Negative scenarios', () => {
   })
 
   it('should fail to update a booking when total price is not provided', () => {
-    cy.api({
-      method: 'PUT',
-      url: `booking/${bookingId}`,
-      headers: {
-        'Content-Type': 'application/json',
-        'Accept': 'application/json',
-        'Cookie': `token=${accessToken}`
-      },
-      body: {
-        "firstname": firstName,
-        "lastname": lastName,
-        "depositpaid": true,
-        "bookingdates": {
-          checkin,
-          checkout,
+    cy.createBooking().then((bookingId) => {
+      cy.api({
+        method: 'PUT',
+        url: `booking/${bookingId}`,
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+          'Cookie': `token=${accessToken}`
         },
-        "additionalneeds": "Breakfast"
-      },
-      failOnStatusCode: false
-    }).then((response) => {
-      expect(response.status).to.eq(400)
+        body: {
+          "firstname": firstName,
+          "lastname": lastName,
+          "depositpaid": true,
+          "bookingdates": {
+            checkin,
+            checkout,
+          },
+          "additionalneeds": "Breakfast"
+        },
+        failOnStatusCode: false
+      }).then((response) => {
+        expect(response.status).to.eq(400)
+      })
     })
   })
 
   it('should fail to update a booking when the booking dates are not provided', () => {
-    cy.api({
-      method: 'PUT',
-      url: `/booking/${bookingId}`,
-      headers: {
-        'Content-Type': 'application/json',
-        'Accept': 'application/json',
-        'Cookie': `token=${accessToken}`
-      },
-      body: {
-        firstname: firstName,
-        lastname: lastName,
-        totalprice: totalPrice,
-        depositpaid: true,
-        bookingdates: {},
-        additionalneeds: 'Breakfast'
-      },
-      failOnStatusCode: false
-    }).then((response) => {
-      expect(response.status).to.eq(400)
+    cy.createBooking().then((bookingId) => {
+      cy.api({
+        method: 'PUT',
+        url: `/booking/${bookingId}`,
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+          'Cookie': `token=${accessToken}`
+        },
+        body: {
+          firstname: firstName,
+          lastname: lastName,
+          totalprice: totalPrice,
+          depositpaid: true,
+          bookingdates: {},
+          additionalneeds: 'Breakfast'
+        },
+        failOnStatusCode: false
+      }).then((response) => {
+        expect(response.status).to.eq(400)
+      })
     })
   })
 })

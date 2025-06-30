@@ -14,9 +14,7 @@ beforeEach(() => {
 })
 describe('Partial update a booking', () => {
   it('should partial update a booking', () => {
-    cy.getRamdomBookingId().then((id) => {
-      bookingId = id
-
+    cy.getRamdomBookingId().then((bookingId) => {
       cy.api({
         method: 'PATCH',
         url: `booking/${bookingId}`,

@@ -10,20 +10,19 @@ beforeEach(() => {
 describe('Get a booking by ID', () => {
   it('should fetch the booking ID dynamically', () => {
     cy.getRamdomBookingId().then((bookingId) => {
-      cy.log(bookingId),
-        cy.api({
-          method: 'GET',
-          url: `/booking/${bookingId}`,
-          headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${accessToken}`
-          },
-          failOnStatusCode: false
-        }).then((response) => {
-          expect(response.status).to.eq(200)
-          expect(response.body).to.have.property('firstname')
-          expect(response.body.bookingdates).to.be.an('object')
-        })
+      cy.api({
+        method: 'GET',
+        url: `/booking/${bookingId}`,
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${accessToken}`
+        },
+        failOnStatusCode: false
+      }).then((response) => {
+        expect(response.status).to.eq(200)
+        expect(response.body).to.have.property('firstname')
+        expect(response.body.bookingdates).to.be.an('object')
+      })
     })
   })
 })
