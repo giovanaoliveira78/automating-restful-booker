@@ -13,7 +13,7 @@ beforeEach(() => {
   lastName = faker.person.lastName()
 })
 describe('Partial update a booking', () => {
-  it('Should partial update a booking', () => {
+  it('should partial update a booking', () => {
     cy.getRamdomBookingId().then((id) => {
       bookingId = id
 
@@ -40,9 +40,9 @@ describe('Partial update a booking', () => {
 })
 
 describe('Partial update a booking - Negative scenarios', () => {
-  it('Should fail to partial update a booking when the booking ID is not provided', () => {
+  it('should fail to partial update a booking when the booking ID is not provided', () => {
     const invalidId = faker.number.int({ min: 99999, max: 999999 })
-    
+
     cy.api({
       method: 'PATCH',
       url: `/booking/${invalidId}`,

@@ -17,7 +17,7 @@ beforeEach(() => {
 })
 
 describe('Create a booking', () => {
-  it('Should create a booking', () => {
+  it('should create a booking', () => {
     cy.api({
       method: 'POST',
       url: '/booking',
@@ -48,7 +48,7 @@ describe('Create a booking', () => {
 })
 
 describe('Create a booking - Negative scenarios', () => {
-  it('Should fail to create a booking when the name is not provided', () => {
+  it('should fail to create a booking when the name is not provided', () => {
     cy.api({
       method: 'POST',
       url: '/booking',
@@ -71,7 +71,7 @@ describe('Create a booking - Negative scenarios', () => {
     })
   })
 
-  it('Should fail to create a booking when the booking dates are not provided', () => {
+  it('should fail to create a booking when the booking dates are not provided', () => {
     cy.api({
       method: 'POST',
       url: '/booking',

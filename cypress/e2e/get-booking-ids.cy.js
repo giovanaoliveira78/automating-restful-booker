@@ -13,7 +13,7 @@ describe('List and filter bookings', () => {
   const lastName = faker.person.lastName()
   const { checkin, checkout } = generateBookingDates()
 
-  it('Should return a list of bookings', () => {
+  it('should return a list of bookings', () => {
     cy.api({
       method: 'GET',
       url: '/booking',
@@ -28,7 +28,7 @@ describe('List and filter bookings', () => {
     })
   })
 
-  it('Should filter bookings by name', () => {
+  it('should filter bookings by name', () => {
     cy.api({
       method: 'GET',
       url: `/booking?firstname=${firstName}&lastname=${lastName}`,
@@ -42,7 +42,7 @@ describe('List and filter bookings', () => {
     })
   })
 
-  it('Should filter bookings by checkin date', () => {
+  it('should filter bookings by checkin date', () => {
     cy.api({
       method: 'GET',
       url: `/booking?checkin=${checkin}&checkout=${checkout}`,
@@ -58,7 +58,7 @@ describe('List and filter bookings', () => {
 })
 
 describe('List and filter bookings - Negative scenarios', () => {
-  it('Should fail to list bookings with invalid date parameters', () => {
+  it('should fail to list bookings with invalid date parameters', () => {
     cy.api({
       method: 'GET',
       url: `/booking?checkin=invalidDate&checkout=invalidDate`,

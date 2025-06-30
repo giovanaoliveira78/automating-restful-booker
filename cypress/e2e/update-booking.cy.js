@@ -43,7 +43,7 @@ beforeEach(() => {
   })
 })
 describe('Update a booking', () => {
-  it('Should update a booking', () => {
+  it('should update a booking', () => {
     cy.api({
       method: 'PUT',
       url: `booking/${bookingId}`,
@@ -71,7 +71,7 @@ describe('Update a booking', () => {
 })
 
 describe('Update a booking - Negative scenarios', () => {
-  it('Should fail to update a booking when the booking ID is not provided', () => {
+  it('should fail to update a booking when the booking ID is not provided', () => {
     const invalidId = faker.number.int({ min: 99999, max: 999999 })
 
     cy.api({
@@ -96,7 +96,7 @@ describe('Update a booking - Negative scenarios', () => {
     })
   })
 
-  it('Should fail to update a booking when total price is not provided', () => {
+  it('should fail to update a booking when total price is not provided', () => {
     cy.api({
       method: 'PUT',
       url: `booking/${bookingId}`,
@@ -121,7 +121,7 @@ describe('Update a booking - Negative scenarios', () => {
     })
   })
 
-  it('Should fail to update a booking when the booking dates are not provided', () => {
+  it('should fail to update a booking when the booking dates are not provided', () => {
     cy.api({
       method: 'PUT',
       url: `/booking/${bookingId}`,

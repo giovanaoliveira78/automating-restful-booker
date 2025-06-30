@@ -8,7 +8,7 @@ beforeEach(() => {
 })
 
 describe('Get a booking by ID', () => {
-  it('Should fetch the booking ID dynamically', () => {
+  it('should fetch the booking ID dynamically', () => {
     cy.getRamdomBookingId().then((bookingId) => {
       cy.log(bookingId),
         cy.api({
@@ -29,7 +29,7 @@ describe('Get a booking by ID', () => {
 })
 
 describe('Get a booking by ID - Negative scenarios', () => {
-  it('Should fail to fetch a non-existent booking ID', () => {
+  it('should fail to fetch a non-existent booking ID', () => {
     const invalidId = faker.number.int({ min: 99999, max: 999999 })
     cy.api({
       method: 'GET',
