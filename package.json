@@ -5,6 +5,7 @@
   },
   "dependencies": {
     "cypress-plugin-api": "^2.11.2",
-    "dayjs": "^1.11.13"
+    "dayjs": "^1.11.13",
+    "dotenv": "^17.0.1"
   }
 }

@@ -22,7 +22,7 @@ describe('Update a booking', () => {
     cy.createBooking().then((bookingId) => {
       cy.api({
         method: 'PUT',
-        url: `booking/${bookingId}`,
+        url: `${Cypress.config('baseUrl')}/booking/${bookingId}`,
         headers: {
           'Content-Type': 'application/json',
           'Accept': 'application/json',
@@ -53,7 +53,7 @@ describe('Update a booking - Negative scenarios', () => {
 
     cy.api({
       method: 'PUT',
-      url: `/booking/${invalidId}`,
+      url: `${Cypress.config('baseUrl')}/booking/${invalidId}`,
       headers: {
         'Content-Type': 'application/json',
         'Accept': 'application/json',
@@ -77,7 +77,7 @@ describe('Update a booking - Negative scenarios', () => {
     cy.createBooking().then((bookingId) => {
       cy.api({
         method: 'PUT',
-        url: `booking/${bookingId}`,
+        url: `${Cypress.config('baseUrl')}booking/${bookingId}`,
         headers: {
           'Content-Type': 'application/json',
           'Accept': 'application/json',
@@ -104,7 +104,7 @@ describe('Update a booking - Negative scenarios', () => {
     cy.createBooking().then((bookingId) => {
       cy.api({
         method: 'PUT',
-        url: `/booking/${bookingId}`,
+        url: `${Cypress.config('baseUrl')}/booking/${bookingId}`,
         headers: {
           'Content-Type': 'application/json',
           'Accept': 'application/json',

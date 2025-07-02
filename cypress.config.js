@@ -1,9 +1,11 @@
-const { defineConfig } = require("cypress");
+const { defineConfig } = require("cypress")
+
+require('dotenv/config')
 
 module.exports = defineConfig({
+  video: false,
+  screenshotOnRunFailure: false,
   e2e: {
-    setupNodeEvents(on, config) {
-    },
-    baseUrl: 'https://restful-booker.herokuapp.com',
+    baseUrl: process.env.BASE_URL
   },
-});
+})

@@ -5,7 +5,7 @@ Cypress.Commands.add('auth', () => {
   cy.fixture('users').then((data) => {
     cy.api({
       method: 'POST',
-      url: '/auth',
+      url: `${Cypress.config('baseUrl')}/auth`,
       headers: {
         'Content-Type': 'application/json'
       },
@@ -20,7 +20,7 @@ Cypress.Commands.add('getRamdomBookingId', () => {
   cy.auth().then((token) => {
     return cy.api({
       method: 'GET',
-      url: '/booking',
+      url: `${Cypress.config('baseUrl')}/booking`,
       headers: {
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${token}`
@@ -48,7 +48,7 @@ Cypress.Commands.add('createBooking', () => {
   return cy.auth().then((token) => {
     cy.api({
       method: 'POST',
-      url: '/booking',
+      url: `${Cypress.config('baseUrl')}/booking`,
       headers: {
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${token}`

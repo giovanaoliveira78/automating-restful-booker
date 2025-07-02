@@ -16,7 +16,7 @@ describe('List and filter bookings', () => {
   it('should return a list of bookings', () => {
     cy.api({
       method: 'GET',
-      url: '/booking',
+      url: `${Cypress.config('baseUrl')}/booking`,
       headers: {
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${accessToken}`
@@ -31,7 +31,7 @@ describe('List and filter bookings', () => {
   it('should filter bookings by name', () => {
     cy.api({
       method: 'GET',
-      url: `/booking?firstname=${firstName}&lastname=${lastName}`,
+      url: `${Cypress.config('baseUrl')}/booking?firstname=${firstName}&lastname=${lastName}`,
       headers: {
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${accessToken}`
@@ -45,7 +45,7 @@ describe('List and filter bookings', () => {
   it('should filter bookings by checkin date', () => {
     cy.api({
       method: 'GET',
-      url: `/booking?checkin=${checkin}&checkout=${checkout}`,
+      url: `${Cypress.config('baseUrl')}/booking?checkin=${checkin}&checkout=${checkout}`,
       headers: {
         'Content-type': 'application/json',
         'Authorization': `Bearer ${accessToken}`
@@ -61,7 +61,7 @@ describe('List and filter bookings - Negative scenarios', () => {
   it('should fail to list bookings with invalid date parameters', () => {
     cy.api({
       method: 'GET',
-      url: `/booking?checkin=invalidDate&checkout=invalidDate`,
+      url: `${Cypress.config('baseUrl')}/booking?checkin=invalidDate&checkout=invalidDate`,
       headers: {
         'Content-type': 'application/json',
         'Authorization': `Bearer ${accessToken}`

@@ -20,7 +20,7 @@ describe('Create a booking', () => {
   it('should create a booking', () => {
     cy.api({
       method: 'POST',
-      url: '/booking',
+      url: `${Cypress.config('baseUrl')}/booking`,
       headers: {
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${accessToken}`
@@ -51,7 +51,7 @@ describe('Create a booking - Negative scenarios', () => {
   it('should fail to create a booking when the name is not provided', () => {
     cy.api({
       method: 'POST',
-      url: '/booking',
+      url: `${Cypress.config('baseUrl')}/booking`,
       headers: {
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${accessToken}`
@@ -74,7 +74,7 @@ describe('Create a booking - Negative scenarios', () => {
   it('should fail to create a booking when the booking dates are not provided', () => {
     cy.api({
       method: 'POST',
-      url: '/booking',
+      url: `${Cypress.config('baseUrl')}/booking`,
       headers: {
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${accessToken}`

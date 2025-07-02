@@ -12,7 +12,7 @@ describe('Get a booking by ID', () => {
     cy.getRamdomBookingId().then((bookingId) => {
       cy.api({
         method: 'GET',
-        url: `/booking/${bookingId}`,
+        url: `${Cypress.config('baseUrl')}/booking/${bookingId}`,
         headers: {
           'Content-Type': 'application/json',
           'Authorization': `Bearer ${accessToken}`
@@ -32,7 +32,7 @@ describe('Get a booking by ID - Negative scenarios', () => {
     const invalidId = faker.number.int({ min: 99999, max: 999999 })
     cy.api({
       method: 'GET',
-      url: `/booking/${invalidId}`,
+      url: `${Cypress.config('baseUrl')}/booking/${invalidId}`,
       headers: {
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${accessToken}`

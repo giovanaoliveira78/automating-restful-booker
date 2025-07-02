@@ -1,7 +1,6 @@
 import { faker } from '@faker-js/faker'
 
 let accessToken
-let bookingId
 let firstName, lastName
 
 beforeEach(() => {
@@ -17,7 +16,7 @@ describe('Partial update a booking', () => {
     cy.getRamdomBookingId().then((bookingId) => {
       cy.api({
         method: 'PATCH',
-        url: `booking/${bookingId}`,
+        url: `${Cypress.config('baseUrl')}/booking/${bookingId}`,
         headers: {
           'Content-Type': 'application/json',
           'Accept': 'application/json',
@@ -43,7 +42,7 @@ describe('Partial update a booking - Negative scenarios', () => {
 
     cy.api({
       method: 'PATCH',
-      url: `/booking/${invalidId}`,
+      url: `${Cypress.config('baseUrl')}/booking/${invalidId}`,
       headers: {
         'Content-Type': 'application/json',
         'Accept': 'application/json',

@@ -13,7 +13,7 @@ describe('Delete a booking', () => {
     cy.createBooking().then((bookingId) => {
       cy.api({
         method: 'DELETE',
-        url: `/booking/${bookingId}`,
+        url: `${Cypress.config('baseUrl')}/booking/${bookingId}`,
         headers: {
           'Content-Type': 'application/json',
           'Accept': 'application/json',
@@ -33,7 +33,7 @@ describe('Delete a booking - Negative scenarios', () => {
 
     cy.api({
       method: 'DELETE',
-      url: `/booking/${invalidId}`,
+      url: `${Cypress.config('baseUrl')}/booking/${invalidId}`,
       headers: {
         'Content-Type': 'application/json',
         'Accept': 'application/json',
