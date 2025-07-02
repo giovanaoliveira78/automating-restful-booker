@@ -28,7 +28,7 @@ describe('Delete a booking', () => {
 })
 
 describe('Delete a booking - Negative scenarios', () => {
-  it('should fail to delete a booking when the booking ID is not provided', () => {
+  it('hould fail to delete a booking when the booking ID does not exist', () => {
     const invalidId = faker.number.int({ min: 99999, max: 999999 })
 
     cy.api({
