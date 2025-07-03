@@ -77,7 +77,7 @@ describe('Update a booking - Negative scenarios', () => {
     cy.createBooking().then((bookingId) => {
       cy.api({
         method: 'PUT',
-        url: `${Cypress.config('baseUrl')}booking/${bookingId}`,
+        url: `${Cypress.config('baseUrl')}/booking/${bookingId}`,
         headers: {
           'Content-Type': 'application/json',
           'Accept': 'application/json',
