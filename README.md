@@ -36,8 +36,8 @@ This project is an automated API test suite for the [Restful Booker](https://res
 ### 1. Clone the repository
 
 ```bash
-git clone https://github.com/your-username/your-repo.git
-cd your-repo
+git clone git@github.com:giovanaoliveira78/automating-restful-booker.git
+cd automating-restful-booker
 ```
 
 ### 2. Install dependencies
