@@ -5,7 +5,7 @@ describe('Verify the health of the API', () => {
       url: `${Cypress.config('baseUrl')}/ping`,
       failOnStatusCode: false
     }).then((response) => {
-      expect(response.status).to.eq(200)
+      expect(response.status).to.eq(201)
     })
   })
 })
