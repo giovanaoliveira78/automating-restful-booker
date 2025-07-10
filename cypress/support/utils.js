@@ -11,3 +11,18 @@ export function generateBookingDates() {
     checkout: dayjs(checkOutDate).format('YYYY-MM-DD'),
   }
 }
+
+export function generateBookingBody() {
+  const dates = generateBookingDates()
+  return {
+    firstname: faker.person.firstName(),
+    lastname: faker.person.lastName(),
+    totalprice: faker.number.int({ min: 100, max: 1000 }),
+    depositpaid: true,
+    bookingdates: {
+      checkin: dates.checkin,
+      checkout: dates.checkout
+    },
+    additionalneeds: 'Breakfast'
+  }
+}
