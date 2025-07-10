@@ -23,6 +23,11 @@ export function generateBookingBody() {
       checkin: dates.checkin,
       checkout: dates.checkout
     },
-    additionalneeds: 'Breakfast'
+    additionalneeds: getRandomMeal()
   }
+}
+
+function getRandomMeal(){
+  const meals = ['Breakfast', 'Lunch', 'Dinner']
+  return meals[Math.floor(Math.random() * meals.length)]
 }
