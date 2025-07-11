@@ -1,19 +1,11 @@
-import { faker } from '@faker-js/faker'
-import { generateBookingDates } from '../support/utils'
+import { generateBookingBody } from '../support/utils'
 
 let accessToken
-let firstName, lastName, checkin, checkout, totalPrice
 
 beforeEach(() => {
   cy.auth().then((token) => {
     accessToken = token
   })
-  firstName = faker.person.firstName()
-  lastName = faker.person.lastName()
-  totalPrice = faker.number.int({ min: 100, max: 1000 })
-  const dates = generateBookingDates()
-  checkin = dates.checkin
-  checkout = dates.checkout
 })
 
 describe('Create a booking', () => {
@@ -25,17 +17,7 @@ describe('Create a booking', () => {
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${accessToken}`
       },
-      body: {
-        "firstname": firstName,
-        "lastname": lastName,
-        "totalprice": totalPrice,
-        "depositpaid": true,
-        "bookingdates": {
-          checkin,
-          checkout,
-        },
-        "additionalneeds": "Breakfast"
-      },
+      body: generateBookingBody(),
       failOnStatusCode: false
     }).then((response) => {
       expect(response.status).to.eq(200)
@@ -56,15 +38,10 @@ describe('Create a booking - Negative scenarios', () => {
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${accessToken}`
       },
-      body: {
-        "totalprice": totalPrice,
-        "depositpaid": true,
-        "bookingdates": {
-          checkin,
-          checkout,
-        },
-        "additionalneeds": "Breakfast"
-      },
+      body: generateBookingBody({
+        firstname: '',
+        lastname: ''
+      }),
       failOnStatusCode: false
     }).then((response) => {
       expect(response.status).to.eq(500)
@@ -79,14 +56,9 @@ describe('Create a booking - Negative scenarios', () => {
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${accessToken}`
       },
-      body: {
-        "firstname": firstName,
-        "lastname": lastName,
-        "totalprice": totalPrice,
-        "depositpaid": true,
-        "bookingdates": {},
-        "additionalneeds": "Breakfast"
-      },
+      body: generateBookingBody({
+        bookingdates: {}
+      }),
       failOnStatusCode: false
     }).then((response) => {
       expect(response.status).to.eq(500)

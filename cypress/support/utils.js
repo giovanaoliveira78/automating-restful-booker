@@ -12,9 +12,9 @@ export function generateBookingDates() {
   }
 }
 
-export function generateBookingBody() {
+export function generateBookingBody({ firstname, lastname, totalprice, bookingdates } = {}) {
   const dates = generateBookingDates()
-  return {
+  const body = {
     firstname: faker.person.firstName(),
     lastname: faker.person.lastName(),
     totalprice: faker.number.int({ min: 100, max: 1000 }),
@@ -25,9 +25,27 @@ export function generateBookingBody() {
     },
     additionalneeds: getRandomMeal()
   }
+
+  if (!firstname && firstname?.trim() === '') {
+    delete body.firstname
+  }
+
+  if (!lastname && lastname?.trim() === '') {
+    delete body.lastname
+  }
+
+  if (totalprice) {
+    delete body.totalprice
+  }
+
+  if (bookingdates && Object.keys(bookingdates).length === 0) {
+    delete body.bookingdates
+  }
+
+  return body
 }
 
-function getRandomMeal(){
+function getRandomMeal() {
   const meals = ['Breakfast', 'Lunch', 'Dinner']
   return meals[Math.floor(Math.random() * meals.length)]
 }
